@@ -3,9 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server"
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts"
   },
   "author": "Kaiden Rawlinson",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.11.1",
+    "@types/node": "^10.0.8",
+    "@types/socket.io": "^1.4.33",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0",
+    "ts-node": "^6.0.3",
+    "typescript": "^2.8.3"
+  }
 }

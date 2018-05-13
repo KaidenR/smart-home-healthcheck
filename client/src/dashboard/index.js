@@ -2,6 +2,7 @@ import * as glamor from 'glamor'
 import glamorous from 'glamorous'
 import React from 'react'
 
+import * as api from './api'
 import Page from '../common/layout/page'
 import StatusIndicator, { STATUS } from './components/status-indicator'
 
@@ -10,15 +11,20 @@ export default class Dashboard extends React.Component {
     super(props)
     this.state = {
       showDetails: false,
-      devices: [
-        { name: 'Nest Devices', status: STATUS.OK },
-        { name: 'TV Lights Pi', status: STATUS.OK },
-        { name: 'Monitor Backlight Pi', status: STATUS.OK },
-        { name: 'WeMo Devices', status: STATUS.OK }
-      ]
+      devices: []
     }
   }
+  componentDidMount() {
+    api.onSystemStatusChange(this.handleSystemStatusChange)
+  }
 
+  componentWillUnmount() {
+    api.unregisterSystemStatusChange(this.handleSystemStatusChange)
+  }
+
+  handleSystemStatusChange = ({devices}) => {
+    this.setState({ devices })
+  }
   openStatusDetails = device => () => {
     this.setState({ showDetails: true })
   }

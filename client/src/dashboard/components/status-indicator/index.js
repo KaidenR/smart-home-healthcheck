@@ -62,11 +62,22 @@ export default class StatusIndicator extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      status: props.status
+    }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.status !== this.state.status) {
+      this.setState({ status: null }, () => {
+        this.setState({ status: nextProps.status })
+      })
+    }
+  }
 
   render() {
-    const { name, onClick, status } = this.props
+    const { name, onClick } = this.props
+    const { status } = this.state
 
     if (!status)
       return <Container/>
